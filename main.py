@@ -23,18 +23,37 @@ def main():
         'Salt Lake City': ['Visit the USA Climbing Team Gym','Go Rock Climbing', 'Go Hiking', 'Vist the Planetarium', 'Vist the Natural History Museum']
     }    
 
+    selected_destination = select_destination(all_destinations)
+    selected_transportation = select_transportation(all_transportations)
+    selected_restaurant = select_restaurant(selected_destination, all_restaurants)
+    selected_entertainment = select_entertainment(selected_destination, all_entertainment)
+    
     trip_confirmed = False
     while trip_confirmed is False:
-        selected_destination = select_destination(all_destinations)
-        selected_transportation = select_transportation(all_transportations)
-        selected_restaurant = select_restaurant(selected_destination, all_restaurants)
-        selected_entertainment = select_entertainment(selected_destination, all_entertainment)
         trip_review_message = create_trip_review_message(selected_destination, selected_transportation, selected_restaurant, selected_entertainment)
-
         print(trip_review_message)
         user_confirmation = input('Would you like to confirm these trip details? Please enter Y/N: ')
         if user_confirmation.upper() == 'Y':
             trip_confirmed = True
+            break
+        reselection_message = '''
+        1 - Destination
+        2 - Transportation
+        3 - Restaurant
+        4 - Entertainment'''
+        print(reselection_message)
+        reselection_option = input('Please enter an option to reselect: ')
+        if reselection_option == '1':
+            selected_destination = select_destination(all_destinations)
+            #Since destination affects restaurants and entertainment, reselect those as well
+            selected_restaurant = select_restaurant(selected_destination, all_restaurants)
+            selected_entertainment = select_entertainment(selected_destination, all_entertainment)
+        elif reselection_option == '2':
+            selected_transportation = select_transportation(all_transportations)
+        elif reselection_option == '3':
+            selected_restaurant = select_restaurant(selected_destination, all_restaurants)
+        elif reselection_option == '4':
+            selected_entertainment = select_entertainment(selected_destination, all_entertainment)
 
 def create_trip_review_message(destination, transportation, restaurant, entertainment):
     return f'''Your selected trip details are:
