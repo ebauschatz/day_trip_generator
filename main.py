@@ -27,15 +27,37 @@ def main():
         all_transportations, all_restaurants, all_entertainments)
     
     #Confirm or reconfigure as necessary
+    destination, transportation, restaurant, entertainment = confirm_trip_details(destination, transportation, restaurant, entertainment, all_destinations, 
+        all_transportations, all_restaurants, all_entertainments, all_trip_categories)
+    
+    #Display confirmation message and trip summary
+    console_display.display_confirmed_trip_details(destination, transportation, restaurant, entertainment)
+
+def configure_initial_trip_details(destinations, transportations, restaurants, entertainments):
+    selected_destination = select_independent_option('destination', destinations)
+    selected_transportation = select_independent_option('transportation', transportations)
+    selected_restaurant = select_dependent_option('restaurant', restaurants, selected_destination)
+    selected_entertainment = select_dependent_option('entertainment', entertainments, selected_destination)
+    return selected_destination, selected_transportation, selected_restaurant, selected_entertainment
+
+def get_user_confirmation():
+    user_confirmation = input('Would you like to confirm these trip details? Please enter Y/N: ')
+    if user_confirmation.upper() == 'Y':
+        return True
+    else:
+        return False
+
+def confirm_trip_details(destination, transportation, restaurant, entertainment, all_destinations, 
+        all_transportations, all_restaurants, all_entertainments, trip_categories):
     trip_confirmed = False
     while trip_confirmed is False:
         console_display.review_trip_details(destination, transportation, restaurant, entertainment)
         
-        trip_confirmed = confirm_trip_details()
+        trip_confirmed = get_user_confirmation()
         if trip_confirmed is True:
             break
 
-        console_display.display_reselection_options(all_trip_categories)
+        console_display.display_reselection_options(trip_categories)
         reselection_option = input('Please enter an option to reselect: ')
         if reselection_option == '1':
             destination = select_independent_option('destination', all_destinations)
@@ -48,21 +70,6 @@ def main():
             restaurant = select_dependent_option('restaurant', all_restaurants, destination)
         elif reselection_option == '4':
             entertainment = select_dependent_option('entertainment', all_entertainments, destination)
-    
-    console_display.display_confirmed_trip_details(destination, transportation, restaurant, entertainment)
-
-def configure_initial_trip_details(destinations, transportations, restaurants, entertainments):
-    selected_destination = select_independent_option('destination', destinations)
-    selected_transportation = select_independent_option('transportation', transportations)
-    selected_restaurant = select_dependent_option('restaurant', restaurants, selected_destination)
-    selected_entertainment = select_dependent_option('entertainment', entertainments, selected_destination)
-    return selected_destination, selected_transportation, selected_restaurant, selected_entertainment
-
-def confirm_trip_details():
-    user_confirmation = input('Would you like to confirm these trip details? Please enter Y/N: ')
-    if user_confirmation.upper() == 'Y':
-        return True
-    else:
-        return False
+    return destination, transportation, restaurant, entertainment
 
 main()
