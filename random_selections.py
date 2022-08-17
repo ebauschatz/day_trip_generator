@@ -11,13 +11,16 @@ def confirm_selection(selection, selection_type):
 def select_random_list_element(values):
     return random.choice(values)
 
-def select_independent_option(option_type, all_options):
+def select_random_option(option_type, all_options):
     option_confirmed = False
     while option_confirmed is False:
         random_selection = select_random_list_element(all_options)
         option_confirmed = confirm_selection(random_selection, option_type)
     return random_selection
 
-def select_dependent_option(option_type, all_options, controlling_key):
-    potential_options = all_options[controlling_key]
-    return select_independent_option(option_type, potential_options)
+def select_random_object_by_name(object_type, all_objects):
+    option_confirmed = False
+    while option_confirmed is False:
+        random_selection = select_random_list_element(all_objects)
+        option_confirmed = confirm_selection(random_selection.name, object_type)
+    return random_selection

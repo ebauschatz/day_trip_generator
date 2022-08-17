@@ -4,7 +4,7 @@ def capitalize_first_letter(original_string):
 def review_trip_details(trip):
     print()
     print(f'''Your selected trip details are:
-    Destination: {capitalize_first_letter(trip.destination)}
+    Destination: {capitalize_first_letter(trip.destination.name)}
     Transportation: {capitalize_first_letter(trip.transportation)}
     Restaurant: {capitalize_first_letter(trip.restaurant)}
     Entertainment: {capitalize_first_letter(trip.entertainment)}''')
@@ -18,6 +18,6 @@ def display_reselection_options(all_categories):
 def display_confirmed_trip_details(trip):
     print()
     print(f'''Thank you for confirming your trip details!
-    Your adventure will take you to {trip.destination} by {trip.transportation}.
+    Your adventure will take you to {trip.destination.name} by {trip.transportation}.
     There you will get to {trip.entertainment}!
     Be sure to enjoy a tasty meal at {trip.restaurant} before you leave!''')
