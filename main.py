@@ -5,9 +5,9 @@ from random_selections import select_random_option, select_random_object_by_name
 
 def main():
     #Get pre-populated options from hard-coded data
-    all_trip_categories = hard_coded_data.configure_all_trip_categories()
-    all_transportations = hard_coded_data.configure_all_transportations()
-    all_destinations = hard_coded_data.configure_all_destinations()
+    all_trip_categories = hard_coded_data.all_trip_categories
+    all_transportations = hard_coded_data.all_transportations
+    all_destinations = hard_coded_data.all_destinations
 
     #Configure initial selections
     trip = configure_initial_trip_details(all_destinations, all_transportations)
